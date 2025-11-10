@@ -29,8 +29,6 @@ public class AdminService {
     private final String userServiceUrl;
     private final RestTemplate restTemplate;
     private Random random;
-    private final String userAccessError = "User has no right to get analytics.";
-    private final String dateError = "Start date cannot be greater than end date.";
 
     /**
      * Constructor for admin service.
@@ -87,10 +85,10 @@ public class AdminService {
     public List<String> getEncounteredIssues(UUID adminId, OffsetDateTime startDate, OffsetDateTime endDate)
             throws AccessForbiddenException, BadArgumentException {
         if (!new UserIsAdminValidator(null, getAdminUser(adminId, userServiceUrl)).process(null)) {
-            throw new AccessForbiddenException(userAccessError);
+            throw new AccessForbiddenException("User has no right to get analytics.");
         }
         if (startDate.isAfter(endDate)) {
-            throw new BadArgumentException(dateError);
+            throw new BadArgumentException("Start date cannot be greater than end date.");
         }
 
         List<String> possibleIssues = List.of(
@@ -136,10 +134,10 @@ public class AdminService {
     public int getTotalDeliveriesAnalytic(UUID adminId, OffsetDateTime startDate, OffsetDateTime endDate)
             throws BadArgumentException, AccessForbiddenException, ServiceUnavailableException {
         if (!new UserIsAdminValidator(null, getAdminUser(adminId, userServiceUrl)).process(null)) {
-            throw new AccessForbiddenException(userAccessError);
+            throw new AccessForbiddenException("User has no right to get analytics.");
         }
         if (startDate.isAfter(endDate)) {
-            throw new BadArgumentException(dateError);
+            throw new BadArgumentException("Start date cannot be greater than end date.");
         }
         List<Delivery> deliveries = deliveryRepository.findAll();
         if (deliveries.isEmpty()) {
@@ -165,10 +163,10 @@ public class AdminService {
     public int getSuccessfulDeliveriesAnalytic(UUID adminId, OffsetDateTime startDate, OffsetDateTime endDate)
             throws BadArgumentException, AccessForbiddenException, ServiceUnavailableException {
         if (!new UserIsAdminValidator(null, getAdminUser(adminId, userServiceUrl)).process(null)) {
-            throw new AccessForbiddenException(userAccessError);
+            throw new AccessForbiddenException("User has no right to get analytics.");
         }
         if (startDate.isAfter(endDate)) {
-            throw new BadArgumentException(dateError);
+            throw new BadArgumentException("Start date cannot be greater than end date.");
         }
 
         List<Delivery> deliveries = deliveryRepository.findAll();
@@ -194,11 +192,12 @@ public class AdminService {
     public long getPreparationTimeAnalytic(UUID adminId, OffsetDateTime startDate, OffsetDateTime endDate)
             throws AccessForbiddenException, BadArgumentException, ServiceUnavailableException {
         if (!new UserIsAdminValidator(null, getAdminUser(adminId, userServiceUrl)).process(null)) {
-            throw new AccessForbiddenException(userAccessError);
+            throw new AccessForbiddenException("User has no right to get analytics.");
         }
         if (startDate.isAfter(endDate)) {
-            throw new BadArgumentException(dateError);
+            throw new BadArgumentException("Start date cannot be greater than end date.");
         }
+
         List<Delivery> deliveries = deliveryRepository.findAll();
         long totalSum = 0;
         long numberOfDeliveries = 0;
@@ -242,10 +241,10 @@ public class AdminService {
     public long getDeliveryTimeAnalytic(UUID adminId, OffsetDateTime startDate, OffsetDateTime endDate)
             throws AccessForbiddenException, BadArgumentException, ServiceUnavailableException {
         if (!new UserIsAdminValidator(null, getAdminUser(adminId, userServiceUrl)).process(null)) {
-            throw new AccessForbiddenException(userAccessError);
+            throw new AccessForbiddenException("User has no right to get analytics.");
         }
         if (startDate.isAfter(endDate)) {
-            throw new BadArgumentException(dateError);
+            throw new BadArgumentException("Start date cannot be greater than end date.");
         }
         List<Delivery> relevantDeliveries = deliveryRepository.findAll()
                 .stream()
@@ -333,10 +332,10 @@ public class AdminService {
     public long getDriverEfficiencyAnalytic(UUID adminId, OffsetDateTime startDate, OffsetDateTime endDate)
             throws AccessForbiddenException, BadArgumentException {
         if (!new UserIsAdminValidator(null, getAdminUser(adminId, userServiceUrl)).process(null)) {
-            throw new AccessForbiddenException(userAccessError);
+            throw new AccessForbiddenException("User has no right to get analytics.");
         }
         if (startDate.isAfter(endDate)) {
-            throw new BadArgumentException(dateError);
+            throw new BadArgumentException("Start date cannot be greater than end date.");
         }
         List<Delivery> deliveries = deliveryRepository.findAll();
         long numberOfDeliveries = deliveries.size();

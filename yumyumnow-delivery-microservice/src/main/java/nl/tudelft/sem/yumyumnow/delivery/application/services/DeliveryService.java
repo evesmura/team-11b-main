@@ -34,7 +34,6 @@ public class DeliveryService {
     private final CourierService courierService;
     private final OrderService orderService;
     private final EmailService emailService;
-    private final String deliveryError = "No delivery found by id.";
 
     /**
      * Create a new DeliveryService.
@@ -150,7 +149,7 @@ public class DeliveryService {
         Optional<Delivery> optionalDelivery = deliveryRepository.findById(id);
 
         if (optionalDelivery.isEmpty()) {
-            throw new NoDeliveryFoundException(deliveryError);
+            throw new NoDeliveryFoundException("No delivery found by id.");
         }
 
         Delivery delivery = optionalDelivery.get();
@@ -241,7 +240,7 @@ public class DeliveryService {
         Optional<Delivery> optionalDelivery = deliveryRepository.findById(id);
 
         if (optionalDelivery.isEmpty()) {
-            throw new NoDeliveryFoundException(deliveryError);
+            throw new NoDeliveryFoundException("No delivery found by id.");
         }
         return optionalDelivery.get();
     }
@@ -356,7 +355,7 @@ public class DeliveryService {
 
         // Check if delivery is present.
         if (optionalDelivery.isEmpty()) {
-            throw new NoDeliveryFoundException(deliveryError);
+            throw new NoDeliveryFoundException("No delivery found by id.");
         }
 
         // Check if delivery has a vendor associated with it.
