@@ -1,0 +1,3 @@
+rootProject.name = 'YumYumNow'
+
+include 'yumyumnow-delivery-microservice'
